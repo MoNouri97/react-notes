@@ -87,11 +87,6 @@ body {
 	margin-bottom: 70px;
 }
 
-app-note-card {
-	display: block;
-	margin-bottom: 25px;
-}
-
 .floating-add-button {
 	position: fixed;
 	bottom: 5px;
@@ -102,6 +97,10 @@ app-note-card {
 
 // Card
 $bg: $dark-fg;
+.note-card-container {
+	display: block;
+	margin-bottom: 25px;
+}
 .note-card-container {
 	position: relative;
 	background: $bg;

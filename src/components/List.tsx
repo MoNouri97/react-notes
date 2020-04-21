@@ -30,7 +30,7 @@ export default function List() {
 				<button
 					className='button floating-add-button is-primary'
 					onClick={() => {
-						addNote && addNote('newNote');
+						addNote && addNote('newNote', 'newNoteBody...');
 					}}
 				>
 					+ Add

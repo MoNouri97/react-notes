@@ -1,5 +1,6 @@
-import React, { useState, FormEvent, ChangeEvent } from 'react';
+import React, { useState, FormEvent } from 'react';
 import PropTypes from 'prop-types';
+import { Link, useHistory } from 'react-router-dom';
 import Note from '../models/note.model';
 
 AddNote.propTypes = {
@@ -10,18 +11,12 @@ AddNote.propTypes = {
 function AddNote(props: PropTypes.InferProps<typeof AddNote.propTypes>) {
 	const [body, setBody] = useState('');
 	const [title, setTitle] = useState('');
+	const history = useHistory();
 
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		console.log({ title, body });
 		props.submit(title, body);
-	};
-
-	const handleChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
-		setTitle(e.target.value);
-	};
-	const handleChangeBody = (e: ChangeEvent<HTMLTextAreaElement>) => {
-		setBody(e.target.value);
+		history.push('/');
 	};
 
 	return (
@@ -34,8 +29,11 @@ function AddNote(props: PropTypes.InferProps<typeof AddNote.propTypes>) {
 							className='input'
 							type='text'
 							value={title}
-							onChange={handleChangeTitle}
+							onChange={(e) => {
+								setTitle(e.target.value);
+							}}
 							placeholder='finish the assignment'
+							required
 						/>
 					</div>
 				</div>
@@ -45,7 +43,9 @@ function AddNote(props: PropTypes.InferProps<typeof AddNote.propTypes>) {
 						<textarea
 							className='textarea'
 							value={body}
-							onChange={handleChangeBody}
+							onChange={(e) => {
+								setBody(e.target.value);
+							}}
 							placeholder='body . . .'
 							rows={10}
 						></textarea>
@@ -54,9 +54,9 @@ function AddNote(props: PropTypes.InferProps<typeof AddNote.propTypes>) {
 				{/* <input type='title' value={title} onChange={handleChange} /> */}
 				<div className='field is-grouped is-pulled-right'>
 					<div className='control'>
-						<button type='button' className='button is-text'>
+						<Link to='/' type='button' className='button is-text'>
 							Cancel
-						</button>
+						</Link>
 					</div>
 					<div className='control'>
 						<button type='submit' className='button is-success'>

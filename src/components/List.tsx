@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
 import { NotesContext } from '../contexts/NotesContext';
 import NoteCard from './NoteCard';
+import { Link } from 'react-router-dom';
 
 export default function List() {
-	const { notes, addNote } = useContext(NotesContext);
+	const { notes } = useContext(NotesContext);
 
 	return (
 		<div className='mainLayout'>
@@ -24,17 +25,11 @@ export default function List() {
 					</div>
 				</div>
 				<div className='notes-list'>
-					{notes &&
-						notes.map((t, i) => <NoteCard key={i} note={t} />)}
+					{notes && notes.map((n) => <NoteCard key={n.id} note={n} />)}
 				</div>
-				<button
-					className='button floating-add-button is-primary'
-					onClick={() => {
-						addNote && addNote('newNote', 'newNoteBody...');
-					}}
-				>
+				<Link className='button floating-add-button is-primary' to='/add'>
 					+ Add
-				</button>
+				</Link>
 			</div>
 		</div>
 	);

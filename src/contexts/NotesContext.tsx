@@ -10,7 +10,7 @@ type ContextProps = {
 	addNote: (t: string, b: string) => void;
 };
 
-export const NotesContext = createContext<Partial<ContextProps>>({});
+export const NotesContext = createContext<Partial<ContextProps>>({ notes: [] });
 
 //Props
 NotesContextProvider.propTypes = {
@@ -24,17 +24,12 @@ export default function NotesContextProvider({
 	children,
 }: PropTypes.InferProps<typeof NotesContextProvider.propTypes>) {
 	const [notes, setNotes] = useState([
-		{ id: uuid(), title: 'first', body: 'firstBody' },
+		new Note('0', 'Add a note', 'notes detail'),
 	]);
 
 	const addNote = (title: string, note: string) => {
-		const n: Note = {
-			id: uuid(),
-			title: title,
-			body: note,
-		};
-		setNotes([...notes, n]);
-		console.log(note);
+		const id = uuid();
+		setNotes([...notes, new Note(id, title, note)]);
 	};
 	return (
 		<NotesContext.Provider value={{ notes: notes, addNote: addNote }}>

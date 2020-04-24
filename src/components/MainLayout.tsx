@@ -1,20 +1,21 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { NotesContext } from '../contexts/NotesContext';
 import AddNote from './AddNote';
 import List from './List';
+import EditNote from './EditNote';
 
 export default function MainLayout() {
-	let { addNote } = useContext(NotesContext);
-
 	return (
 		<div>
 			<Router>
 				<Switch>
 					<Route path='/add'>
-						<AddNote submit={addNote!} />
+						<AddNote />
 					</Route>
-					<Route path='/'>
+					<Route path='/note/:id'>
+						<EditNote />
+					</Route>
+					<Route exact path='/'>
 						<List />
 					</Route>
 				</Switch>

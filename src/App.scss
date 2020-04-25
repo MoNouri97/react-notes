@@ -100,6 +100,7 @@ $bg: $dark-fg;
 .note-card-container {
 	display: block;
 	margin-bottom: 25px;
+	height: 110px;
 }
 .note-card-container {
 	position: relative;
@@ -174,4 +175,70 @@ $bg: $dark-fg;
 	max-width: 500px;
 	margin: auto;
 	margin-top: 50px;
+}
+// animations
+$animation_time: 200ms;
+.note-card-container {
+	transition: all $animation_time linear;
+	transform-origin: center;
+}
+/* slide enter */
+.slide-enter {
+	opacity: 0;
+	transform: scale(0.01);
+	height: 0;
+	z-index: 1;
+	margin: 0;
+	padding: 0;
+}
+.slide-enter.slide-enter-active {
+	opacity: 1;
+	height: 110px;
+	margin-bottom: 25px;
+
+	transform: scale(1);
+	transition: opacity $animation_time linear,
+		transform $animation_time ease-in-out, height $animation_time ease-in-out;
+}
+
+/* slide exit */
+.slide-exit {
+	opacity: 1;
+	height: 110px;
+	transform: scale(1);
+	margin-bottom: 25px;
+}
+.slide-exit.slide-exit-active {
+	opacity: 0;
+	transform: scale(0.01);
+	height: 0;
+	margin: 0;
+	padding: 0;
+
+	transition: opacity $animation_time linear,
+		transform $animation_time ease-in-out, height $animation_time ease-in-out;
+}
+.slide-exit-done {
+	opacity: 0;
+	height: 0;
+}
+
+/* enter */
+.fade-enter {
+	opacity: 0;
+	z-index: 1;
+}
+.fade-enter.fade-enter-active {
+	opacity: 1;
+	transition: opacity 100ms ease-in $animation_time;
+}
+.fade-exit {
+	opacity: 1;
+}
+.fade-exit.fade-exit-active {
+	opacity: 0;
+	transition: opacity 100ms ease-in $animation_time;
+}
+.fade-exit-done {
+	opacity: 0;
 }

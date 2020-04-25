@@ -1,19 +1,22 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { NotesContext } from '../contexts/NotesContext';
 import NoteCard from './NoteCard';
 import { Link } from 'react-router-dom';
 import Note from '../models/note.model';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 export default function List() {
 	const { notes, deleteNote } = useContext(NotesContext);
 	const [filtered, setFiltered] = useState(notes);
-
+	useEffect(() => {
+		setFiltered(notes);
+	}, [notes]);
 	//#region Filter
 	const filter = (query: string) => {
 		// getting words
 		query = query.toLowerCase().trim();
 
-		if (query == '') {
+		if (query === '') {
 			// empty search
 			setFiltered(notes);
 			return;
@@ -65,7 +68,6 @@ export default function List() {
 				noteCount[noteId] = 1;
 			}
 		});
-		console.log({ noteCount });
 
 		const sorted = uniqueResults.sort((a, b) => {
 			return noteCount[b.id] - noteCount[a.id];
@@ -96,15 +98,20 @@ export default function List() {
 						</p>
 					</div>
 				</div>
-				<div className='notes-list'>
+				<TransitionGroup className='notes-list'>
 					{filtered && filtered.length > 0 ? (
 						filtered.map((n) => (
-							<NoteCard key={n.id} note={n} delete={deleteNote!} />
+							<CSSTransition key={n.id} timeout={200} classNames='slide'>
+								<NoteCard key={n.id} note={n} delete={deleteNote!} />
+							</CSSTransition>
 						))
 					) : (
-						<p>No More Notes . . .</p>
+						<CSSTransition key='-1' timeout={300} classNames='fade'>
+							<p>wow such empty . . .</p>
+						</CSSTransition>
 					)}
-				</div>
+				</TransitionGroup>
+
 				<Link className='button floating-add-button is-primary' to='/add'>
 					+ Add
 				</Link>

@@ -1,4 +1,4 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, createContext, useEffect } from 'react';
 import { v1 as uuid } from 'uuid';
 import PropTypes from 'prop-types';
 
@@ -25,9 +25,22 @@ NotesContextProvider.propTypes = {
 export default function NotesContextProvider({
 	children,
 }: PropTypes.InferProps<typeof NotesContextProvider.propTypes>) {
-	const [notes, setNotes] = useState([
-		new Note('0', 'Add a note', 'notes detail'),
-	]);
+	const [notes, setNotes] = useState<Array<Note>>([]);
+
+	//on init
+	useEffect(() => {
+		const saved = localStorage.getItem('notes');
+		if (saved) {
+			setNotes(JSON.parse(saved));
+		}
+	}, []);
+	// update
+	const updateStorage = () => {
+		localStorage.setItem('notes', JSON.stringify(notes));
+	};
+	useEffect(() => {
+		updateStorage();
+	}, [notes]);
 
 	// ---
 	const addNote = (title: string, body: string) => {

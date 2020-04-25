@@ -100,7 +100,7 @@ $bg: $dark-fg;
 .note-card-container {
 	display: block;
 	margin-bottom: 25px;
-	height: 110px;
+	max-height: 140px;
 }
 .note-card-container {
 	position: relative;
@@ -155,7 +155,7 @@ $bg: $dark-fg;
 	height: 34px;
 	width: 34px;
 	background: $light-red;
-	// background-image: url('../../../assets/x.svg');
+	background-image: url('assets/x.svg');
 	background-repeat: no-repeat;
 	background-position: center;
 	border-radius: 4px;
@@ -193,7 +193,7 @@ $animation_time: 200ms;
 }
 .slide-enter.slide-enter-active {
 	opacity: 1;
-	height: 110px;
+	height: auto;
 	margin-bottom: 25px;
 
 	transform: scale(1);
@@ -204,7 +204,7 @@ $animation_time: 200ms;
 /* slide exit */
 .slide-exit {
 	opacity: 1;
-	height: 110px;
+	height: auto;
 	transform: scale(1);
 	margin-bottom: 25px;
 }

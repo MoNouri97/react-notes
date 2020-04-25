@@ -1,9 +1,10 @@
 import React, { useContext, useState, useEffect } from 'react';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import * as Feather from 'feather-icons';
 import { NotesContext } from '../contexts/NotesContext';
 import NoteCard from './NoteCard';
 import { Link } from 'react-router-dom';
 import Note from '../models/note.model';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 export default function List() {
 	const { notes, deleteNote } = useContext(NotesContext);
@@ -11,6 +12,9 @@ export default function List() {
 	useEffect(() => {
 		setFiltered(notes);
 	}, [notes]);
+	useEffect(() => {
+		Feather.replace();
+	}, []);
 	//#region Filter
 	const filter = (query: string) => {
 		// getting words
